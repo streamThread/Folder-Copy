@@ -3,7 +3,7 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         File fromFolder = new File("c:/AmericasCardroom");
-        File destFolder = new File("c:/AmericasCardroom-new");
+        File destFolder = new File("c:/AmericasCardroom/new");
 
         if (!fromFolder.exists()) {
             System.out.println("Исходная директория не существует");
@@ -24,7 +24,7 @@ public class Main {
         if (fromDir.isDirectory()) {
             if (!toDir.exists()) {
                 toDir.mkdir();
-                if (!toDir.exists()){
+                if (!toDir.exists()) {
                     throw new IOException("Вы должны обладать правами администратора для записи новых файлов");
                 }
                 System.out.println("Directory copied from "
@@ -35,8 +35,9 @@ public class Main {
             for (String file : files) {
                 File srcFile = new File(fromDir, file);
                 File destFile = new File(toDir, file);
-
-                copyFolder(srcFile, destFile);
+                if (!destFile.getParentFile().equals(srcFile)) {
+                    copyFolder(srcFile, destFile);
+                }
             }
         } else {
             InputStream in = new FileInputStream(fromDir);
