@@ -5,7 +5,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class Main {
     public static void main(String[] args) {
         Path fromFolder = Paths.get("c:/AmericasCardroom");
-        Path destFolder = Paths.get("c:/AmericasCardroom/new");
+        Path destFolder = Paths.get("c:/new");
 
         if (!fromFolder.toFile().exists()) {
             System.out.println("Исходная директория не существует");
@@ -36,9 +36,7 @@ public class Main {
                     @Override
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
                         try {
-                            if (fromDir.toFile().equals(file.toFile().getParentFile())) {
-                                Thread.sleep(1000);
-                            }
+                            Thread.sleep(1000);
                             Files.copy(file, Paths.get(file.toString().replace(fromDir.toString(), toDir.toString())));
                         } catch (Exception ex) {
                             ex.printStackTrace();
