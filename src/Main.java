@@ -36,7 +36,9 @@ public class Main {
                     @Override
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
                         try {
-                            Thread.sleep(1000);
+                            if (fromDir.toFile().equals(file.toFile().getParentFile())) {
+                                Thread.sleep(1000);
+                            }
                             Files.copy(file, Paths.get(file.toString().replace(fromDir.toString(), toDir.toString())));
                         } catch (Exception ex) {
                             ex.printStackTrace();
