@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,8 +26,9 @@ public class Main {
 
     public static void copyFolder(Path fromDir, Path toDir) throws Exception {
 
-        Files.walk(fromDir)
-                .filter(path -> !toDir.relativize(path).toString().equals(""))
+        List<Path> paths = Files.walk(fromDir).collect(Collectors.toList());
+
+        paths.stream().filter(path -> !toDir.relativize(path).toString().equals(""))
                 .forEach(path ->
                 {
                     try {
